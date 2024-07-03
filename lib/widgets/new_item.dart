@@ -26,7 +26,7 @@ class _NewItemState extends State<NewItem> {
       final url = Uri.https('flutter-prep-df03b-default-rtdb.firebaseio.com',
           'shopping-list.json');
 
-      await http.post(
+      final response = await http.post(
         url,
         headers: {
           'Content_type': 'application/json',
@@ -40,7 +40,15 @@ class _NewItemState extends State<NewItem> {
         ),
       );
 
-      // Navigator.of(context).pop();
+      print(response.body);
+      print(response.statusCode);
+
+      if (!context.mounted) {
+        return;
+      }
+
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pop();
     }
   }
 
